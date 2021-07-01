@@ -20,7 +20,7 @@ class CreateBookTable extends Migration
             $table->string('ISBN')->unique();
             $table->integer('year');
             $table->string('description');
-            $table->string('coverImage');
+            $table->string('coverImage')->nullable();
             $table->integer('user_id')->unsigned();
             
         });
