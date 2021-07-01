@@ -42,6 +42,11 @@
                     </x-slot>
                 </x-dropdown>
             </div>
+            <button class="bg-grey-lighter flex-1 border-b-2 md:flex-none border-grey ml-2 hover:bg-grey-lightest text-grey-darkest font-bold py-4 px-6 rounded openModal" >
+                Click
+            </button>
+            @include('partials.new_book_modal')
+
             <!-- Books section -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <x-dropdown align="right" width="48">
@@ -60,6 +65,12 @@
                     <x-slot name="content">
                         <x-dropdown-link :href="route('myBooks')">
                             {{ __('My books') }}
+                        </x-dropdown-link>
+                        <x-dropdown-link :href="route('allBooks')">
+                            {{ __('All books') }}
+                        </x-dropdown-link>
+                        <x-dropdown-link :href="route('newBook')">
+                            {{ __('New book') }}
                         </x-dropdown-link>
                     </x-slot>
                 </x-dropdown>

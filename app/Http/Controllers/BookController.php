@@ -105,12 +105,24 @@ class BookController extends Controller
 
     }
 
-    public function getBooksForUser(Request $request) {
-        //Accept $request->user_id;
-        //dd(Auth::user()->id);
-        $books = Book::where('user_id', Auth::user()->id);
-        //dd($books);
-        return view('pages.myBooks')->with(['books' => $books]);
+    public function getBooksForUser() {
+        $books = Book::where('user_id', Auth::user()->id)->get();
+        return view('pages.my_books')->with(['books' => $books]);
     }
 
+    public function getAllBooks() {
+        $books = Book::all();
+        return view('pages.all_books')->with(['books' => $books]);
+    }
+
+    public function createNewBook(Request $request) {
+        $user = Auth::user();
+
+        if(!$user) {
+            return abort(403, 'Unauthorized action.');
+        }
+
+        $books = Book::all();
+        return view('pages.allBooks')->with(['books' => $books]);
+    }
 }

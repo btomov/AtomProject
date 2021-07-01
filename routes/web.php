@@ -22,14 +22,12 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-// Route::get('/allBooks', function () {
-//     return view('allBooks');
-// })->middleware(['auth'])->name('allBooks');
-
 Route::get('/my-books', [BookController::class, 'getBooksForUser'])->middleware(['auth'])->name('myBooks');
+Route::get('/all-books', [BookController::class, 'getAllBooks'])->middleware(['auth'])->name('allBooks');
+Route::post('/new-book', [BookController::class, 'createNewBook'])->middleware(['auth'])->name('newBook');
 
-// Route::get('/myBooks', function () {
-//     return view('myBooks');
-// })->middleware(['auth'])->name('myBooks');
+// Route::get('/new-book', function () {
+//     return view('new_book');
+// })->middleware(['auth'])->name('newBook');
 
 require __DIR__.'/auth.php';
