@@ -54,4 +54,23 @@ class BookController extends Controller
 
         return back()->with('successMessage', 'Book created successfully.');
     }
+
+    public function editBook(Request $request) {
+        $user = Auth::user();
+        $bookId = $request->id;
+
+        if(!$user) {
+            return abort(403, 'Unauthorized action.');
+        }
+
+        // $book = Book::where('id', $bookId);
+        $book = Book::find($bookId);
+        $book->name = $request->name;
+        $book->description = $request->description;
+        $book->ISBN = $request->isbn;
+        $book->coverImage = $request->coverImage;
+        $book->year = $request->year;
+        $book->save();
+        return back()->with('successMessage', 'Book edited successfully.');
+    }
 }
