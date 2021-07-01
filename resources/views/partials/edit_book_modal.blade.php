@@ -38,12 +38,12 @@
                 <div>
                     <x-label for="description" :value="__('Description')" />
     
-                    <x-input id="description" class="resize-x border rounded-md" type="textarea" name="description" :value="old('description')" required autofocus />
+                    <textarea cols="48" id="description" name="description" class="resize border rounded-md"></textarea>
                 </div>
                 <div>
                     <x-label for="coverImage" :value="__('Cover Image')" />
     
-                    <x-input id="coverImage" class="resize-x border rounded-md" type="text" name="coverImage" :value="old('coverImage')" required autofocus />
+                    <x-input id="coverImage" class="resize-x border rounded-md w-full" type="text" name="coverImage" :value="old('coverImage')" required autofocus />
                 </div>
     
                 <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">

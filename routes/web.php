@@ -26,7 +26,7 @@ Route::get('/my-books', [BookController::class, 'getBooksForUser'])->middleware(
 Route::get('/all-books', [BookController::class, 'getAllBooks'])->middleware(['auth'])->name('allBooks');
 Route::post('/new-book', [BookController::class, 'createNewBook'])->middleware(['auth'])->name('newBook');
 Route::post('/edit-book', [BookController::class, 'editBook'])->middleware(['auth'])->name('editBook');
-Route::delete('/delete-book', [BookController::class, 'deleteBook'])->middleware(['auth'])->name('deleteBook');
+Route::post('/delete-book/{id}', [BookController::class, 'deleteBook'])->middleware(['auth']);
 
 // Route::get('/new-book', function () {
 //     return view('new_book');

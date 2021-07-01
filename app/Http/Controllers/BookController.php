@@ -63,7 +63,6 @@ class BookController extends Controller
             return abort(403, 'Unauthorized action.');
         }
 
-        // $book = Book::where('id', $bookId);
         $book = Book::find($bookId);
         $book->name = $request->name;
         $book->description = $request->description;
@@ -73,4 +72,20 @@ class BookController extends Controller
         $book->save();
         return back()->with('successMessage', 'Book edited successfully.');
     }
+
+    public function deleteBook(Request $request) {
+        $user = Auth::user();
+        $bookId = $request->id;
+
+        if(!$user) {
+            return abort(403, 'Unauthorized action.');
+        }
+
+        // $book = Book::where('id', $bookId);
+        $book = Book::find($bookId);
+        $book->delete();
+        return back()->with('successMessage', 'Book deleted successfully.');
+    }
+
+
 }
