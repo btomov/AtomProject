@@ -94,26 +94,28 @@ class BookController extends Controller
             return abort(403, 'Unauthorized action.');
         }
 
+        $book = Book::find($bookId);
 
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-    
-        $imageName = time().'.'.$request->image->extension();  
-     
-        $request->image->move(public_path('images'), $imageName);
-
-        $book = Book::find($bookId);
-        //If we're updating the image, delete the old one
         if($request->image){
-            unlink(getcwd().$book->coverImage);
+            $imageName = time().'.'.$request->image->extension();      
+            $request->image->move(public_path('images'), $imageName);
+    
+            //If we're updating the image, delete the old one
+            if($request->image){
+                if(file_exists(getcwd().$book->coverImage)){
+                    unlink(getcwd().$book->coverImage);
+                    
+                }
+            }
+            $book->coverImage = '/images/'.$imageName;
         }
-        dd($request->description);
 
         $book->name = $request->name;
         $book->description = $request->description;
         $book->ISBN = $request->isbn;
-        $book->coverImage = '/images/'.$imageName;
         $book->year = $request->year;
         $book->save();
         return back()->with('successMessage', 'Book edited successfully.');
