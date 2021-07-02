@@ -1,12 +1,10 @@
 @include('partials.head')
-@include('layouts.navigation');
-    <div class="p-10 flex">
+@include('layouts.navigation')
+    <div class="max-w-8xl justify-between flex flex-wrap" style="margin:0 auto;">
       @if($books)
         @foreach($books as $book)
-
-        <!--Card 1-->
         <div class="max-w-sm rounded overflow-hidden shadow-lg m-8">
-          <img class="w-full" src={{$book->coverImage}} alt="Mountain">
+          <img class="w-full h-80 object-cover" src={{$book->coverImage}} alt="Mountain">
           <div class="px-6 py-4">
             <div class="font-bold text-xl mb-2">{{$book->name}}</div>
             <p class="text-gray-700 text-base">

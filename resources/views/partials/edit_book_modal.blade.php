@@ -12,9 +12,9 @@
           <div>
             <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
               <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-                Create new book
+                Edit book
               </h3>
-              <form method="POST" action="{{ route('editBook') }}">
+              <form method="POST" action="{{ route('editBook') }}" enctype="multipart/form-data">
                 @csrf
     
                 <div>    
@@ -43,7 +43,10 @@
                 <div>
                     <x-label for="coverImage" :value="__('Cover Image')" />
     
-                    <x-input id="coverImage" class="resize-x border rounded-md w-full" type="text" name="coverImage" :value="old('coverImage')" required autofocus />
+                    <img src='images' id='image-preview-edit' alt="Editable photo">
+                    <div class="col-md-6">
+                      <input type="file" class='image-uploader-edit' name="image" class="form-control">
+                    </div>
                 </div>
     
                 <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">

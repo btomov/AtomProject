@@ -18,14 +18,14 @@ $(document).ready(function () {
         let year = event.currentTarget.getAttribute("data-year");
         let description = event.currentTarget.getAttribute("data-description");
         let coverImage = event.currentTarget.getAttribute("data-coverImage");
-
+        console.log(coverImage);
         const editModal = $('#editBookModal');
         editModal.show();
         editModal.find('#id').val(id);
         editModal.find('#name').val(name);
         editModal.find('#isbn').val(isbn);
         editModal.find('#year').val(year);
-        editModal.find('#coverImage').val(coverImage);
+        editModal.find('#image-preview-edit').attr('src', coverImage);
         editModal.find('#description').val(description);
     });
 
@@ -84,5 +84,24 @@ $(document).ready(function () {
             },
             type: 'GET'
         });      
+    });
+
+    $('.image-uploader-new').change(function(){
+        let reader = new FileReader(); 
+        console.log('swapping src')
+         
+        reader.onload = (e) => {    
+          $('#image-preview-new').attr('src', e.target.result); 
+        }   
+        reader.readAsDataURL(this.files[0]);       
+    });
+    $('.image-uploader-edit').change(function(){
+        let reader = new FileReader(); 
+        console.log('swapping src')
+         
+        reader.onload = (e) => {    
+          $('#image-preview-edit').attr('src', e.target.result); 
+        }   
+        reader.readAsDataURL(this.files[0]);       
     });
 });

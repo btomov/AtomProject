@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Book;
 use App\Models\UserFavourites;
+use App\Models\Book;
+use File;
 use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
@@ -66,13 +67,19 @@ class BookController extends Controller
         if(!$user) {
             return abort(403, 'Unauthorized action.');
         }
-
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+    
+        $imageName = time().'.'.$request->image->extension();  
+     
+        $request->image->move(public_path('images'), $imageName);
         Book::create([
             'name' => $request->name,
             'ISBN' => $request->isbn,
             'year' => $request->year,
             'description' => $request->description,
-            'coverImage' => $request->coverImage,
+            'coverImage' => '/images/'.$imageName,
             'user_id' => $user->id
         ]);
 
@@ -87,11 +94,26 @@ class BookController extends Controller
             return abort(403, 'Unauthorized action.');
         }
 
+
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+    
+        $imageName = time().'.'.$request->image->extension();  
+     
+        $request->image->move(public_path('images'), $imageName);
+
         $book = Book::find($bookId);
+        //If we're updating the image, delete the old one
+        if($request->image){
+            unlink(getcwd().$book->coverImage);
+        }
+        dd($request->description);
+
         $book->name = $request->name;
         $book->description = $request->description;
         $book->ISBN = $request->isbn;
-        $book->coverImage = $request->coverImage;
+        $book->coverImage = '/images/'.$imageName;
         $book->year = $request->year;
         $book->save();
         return back()->with('successMessage', 'Book edited successfully.');

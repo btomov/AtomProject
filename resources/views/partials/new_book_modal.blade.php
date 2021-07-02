@@ -14,7 +14,7 @@
               <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
                 Create new book
               </h3>
-              <form method="POST" action="{{ route('newBook') }}">
+              <form method="POST" action="{{ route('newBook') }}" enctype="multipart/form-data">
                 @csrf
     
                 <!-- Email Address -->
@@ -35,13 +35,18 @@
                 </div>
                 <div>
                     <x-label for="description" :value="__('Description')" />
-    
-                    <x-input id="description" class="resize-x border rounded-md" type="textarea" name="description" :value="old('description')" required autofocus />
+                    <textarea cols="48" id="description" name="description" class="resize border rounded-md" value="old('description')"></textarea>
                 </div>
                 <div>
                     <x-label for="coverImage" :value="__('Cover Image')" />
     
-                    <x-input id="coverImage" class="resize-x border rounded-md" type="text" name="coverImage" :value="old('coverImage')" required autofocus />
+                    {{-- <x-input id="coverImage" class="resize-x border rounded-md" type="text" name="coverImage" :value="old('coverImage')" required autofocus /> --}}
+                    <img id='image-preview-new' src="images/{{ Session::get('image') }}">
+                    <div class="col-md-6">
+                      <input type="file" class='image-uploader-new' name="image" class="form-control">
+                    </div>
+
+          
                 </div>
     
                 <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">

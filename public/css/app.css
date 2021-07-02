@@ -188226,4 +188226,9 @@ select {
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
-
+@media (max-width: 896px) {
+  .max-w-sm {
+    width:100%;
+    max-width:none;
+  }
+}
