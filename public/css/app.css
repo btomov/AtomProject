@@ -188232,3 +188232,8 @@ select {
     max-width:none;
   }
 }
+
+.description{
+  min-height:50px;
+  overflow-wrap: break-word;
+}

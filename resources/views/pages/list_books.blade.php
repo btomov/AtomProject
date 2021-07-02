@@ -7,10 +7,9 @@
           <img class="w-full h-80 object-cover" src={{$book->coverImage}} alt="Mountain">
           <div class="px-6 py-4">
             <div class="font-bold text-xl mb-2">{{$book->name}}</div>
-            <p class="text-gray-700 text-base">
+            <p class="text-gray-700 text-base description">
                 {{$book->description}}
-                {{$book->year}}
-            </p>
+              </p>
           </div>
           
           <div class="px-6 pt-4 pb-2">

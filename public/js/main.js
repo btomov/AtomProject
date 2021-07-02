@@ -17,6 +17,7 @@ $(document).ready(function () {
         let isbn = event.currentTarget.getAttribute("data-isbn");
         let year = event.currentTarget.getAttribute("data-year");
         let description = event.currentTarget.getAttribute("data-description");
+        console.log(description);
         let coverImage = event.currentTarget.getAttribute("data-coverImage");
         console.log(coverImage);
         const editModal = $('#editBookModal');
@@ -88,10 +89,11 @@ $(document).ready(function () {
 
     $('.image-uploader-new').change(function(){
         let reader = new FileReader(); 
-        console.log('swapping src')
+        
          
         reader.onload = (e) => {    
           $('#image-preview-new').attr('src', e.target.result); 
+          $('.no-cover').hide();
         }   
         reader.readAsDataURL(this.files[0]);       
     });
@@ -101,6 +103,8 @@ $(document).ready(function () {
          
         reader.onload = (e) => {    
           $('#image-preview-edit').attr('src', e.target.result); 
+          $('.no-cover').hide();
+
         }   
         reader.readAsDataURL(this.files[0]);       
     });

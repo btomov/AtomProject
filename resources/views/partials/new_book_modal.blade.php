@@ -37,11 +37,12 @@
                     <x-label for="description" :value="__('Description')" />
                     <textarea cols="48" id="description" name="description" class="resize border rounded-md" value="old('description')"></textarea>
                 </div>
-                <div>
+                <div class="flex flex-col">
                     <x-label for="coverImage" :value="__('Cover Image')" />
     
                     {{-- <x-input id="coverImage" class="resize-x border rounded-md" type="text" name="coverImage" :value="old('coverImage')" required autofocus /> --}}
-                    <img id='image-preview-new' src="images/{{ Session::get('image') }}">
+                    <img id='image-preview-new' src="">
+                    <p class='self-center my-4 no-cover'>No cover selected</p>
                     <div class="col-md-6">
                       <input type="file" class='image-uploader-new' name="image" class="form-control">
                     </div>

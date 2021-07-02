@@ -69,6 +69,7 @@ class BookController extends Controller
         }
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'isbn' => 'unique:books,ISBN'
         ]);
     
         $imageName = time().'.'.$request->image->extension();  
@@ -95,9 +96,9 @@ class BookController extends Controller
         }
 
         $book = Book::find($bookId);
-
         $request->validate([
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'isbn' => 'unique:books,ISBN'
         ]);
         if($request->image){
             $imageName = time().'.'.$request->image->extension();      

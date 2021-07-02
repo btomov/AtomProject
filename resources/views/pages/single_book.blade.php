@@ -2,6 +2,10 @@
 @include('layouts.navigation')
 <div class="max-w-4xl flex items-center h-auto lg:h-screen flex-wrap mx-auto my-32 lg:my-0">
     
+	<!--Img Col-->
+	<div class="w-full lg:w-2/5">
+		<img src={{$book->coverImage}} class="rounded-none lg:rounded-lg shadow-2xl hidden lg:block">
+	</div>
 	<!--Main Col-->
 	<div id="profile" class="w-full lg:w-3/5 rounded-lg lg:rounded-l-lg lg:rounded-r-none shadow-2xl bg-white opacity-75 mx-6 lg:mx-0">
 	
@@ -28,8 +32,6 @@
 				  Edit
 				</button> 
 			</div>
-      @include('partials.edit_book_modal')
-
 			
 			<!-- Use https://simpleicons.org/ to find the svg for your preferred product --> 
 
@@ -37,13 +39,7 @@
 
 	</div>
 	
-	<!--Img Col-->
-	<div class="w-full lg:w-2/5">
-		<!-- Big profile image for side bar (desktop) -->
-		<img src={{$book->coverImage}} class="rounded-none lg:rounded-lg shadow-2xl hidden lg:block">
-		<!-- Image from: http://unsplash.com/photos/MP0IUfwrn0A -->
-		
-	</div>
+
 	
 </div>
 @include('partials.edit_book_modal')

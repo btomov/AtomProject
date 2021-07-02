@@ -17,30 +17,30 @@
               <form method="POST" action="{{ route('editBook') }}" enctype="multipart/form-data">
                 @csrf
     
-                <div>    
+                <div class="mt-4">    
                     <x-input id="id" type="hidden" name="id" />
                 </div>
-                <div>
+                <div class="mt-4">
                     <x-label for="name" :value="__('Name')" />
     
                     <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
                 </div>
-                <div>
+                <div class="mt-4">
                     <x-label for="isbn" :value="__('ISBN')" />
     
                     <x-input id="isbn" class="block mt-1 w-full" type="text" name="isbn" :value="old('isbn')" required autofocus />
                 </div>
-                <div>
+                <div class="mt-4">
                     <x-label for="year" :value="__('Year')" />
     
                     <x-input id="year" class="block mt-1 w-full" type="number" name="year" :value="old('year')" required autofocus />
                 </div>
-                <div>
+                <div class="mt-4">
                     <x-label for="description" :value="__('Description')" />
     
                     <textarea cols="48" id="description" name="description" class="resize border rounded-md"></textarea>
                 </div>
-                <div>
+                <div class="mt-4">
                     <x-label for="coverImage" :value="__('Cover Image')" />
     
                     <img src='images' id='image-preview-edit' alt="Editable photo">

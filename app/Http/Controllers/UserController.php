@@ -34,19 +34,10 @@ class UserController extends Controller
             return abort(403, 'Unauthorized action.');
         }
 
-        //Only check for duplicates if we're changing the email
-        if(Auth::user()->email != $request->email){
-            $userEmail = User::where('email', $request->email)->first();
-            if(!is_null($userEmail)){
-                return back()->withErrors('This email is already in use.');
-            }
-        }
-        if(Auth::user()->username != $request->username){
-            $username = User::where('username', $request->username)->first();
-            if(!is_null($username)){
-                return back()->withErrors('This username is already in use.');
-            }
-        }
+        $request->validate([
+            'username' => 'unique:users',
+            'email' => 'unique:users',
+        ]);
 
         if($request->new_password){
             $request->validate([
@@ -56,7 +47,6 @@ class UserController extends Controller
             ]);
         }
 
-      
         $user = User::find($authUser->id);
         $user->firstName = $request->firstName;
         $user->lastName = $request->lastName;
