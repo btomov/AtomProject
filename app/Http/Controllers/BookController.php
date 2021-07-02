@@ -26,6 +26,17 @@ class BookController extends Controller
     public function index() {
     }
 
+    public function getFavouriteBooks() {
+        $userId = Auth::user()->id;
+        //$books = Book::where('user_id', $userId)->get();
+        $favouriteBooks = UserFavourites::where('user_id', Auth::user()->id)->get();
+        $favBookIds = array();
+        foreach ($favouriteBooks as $favBook) {
+            array_push($favBookIds, $favBook->book_id);
+        }
+        $userBooks = Book::whereIn('id', $favBookIds)->get();
+        return view('pages.list_books')->with(['books' => $userBooks, 'favBooks' => $favBookIds]);
+    }
 
     public function getBooksForUser() {
         $books = Book::where('user_id', Auth::user()->id)->get();
@@ -40,7 +51,13 @@ class BookController extends Controller
 
     public function getAllBooks() {
         $books = Book::all();
-        return view('pages.list_books')->with(['books' => $books]);
+        $favouriteBooks = UserFavourites::where('user_id', Auth::user()->id)->get();
+        $favBooks = array();
+        foreach ($favouriteBooks as $favBook) {
+            array_push($favBooks, $favBook->book_id);
+        }
+
+        return view('pages.list_books')->with(['books' => $books, 'favBooks' => $favBooks]);
     }
 
     public function createNewBook(Request $request) {

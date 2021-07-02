@@ -68,7 +68,7 @@
 
                     <x-slot name="content">
                         <x-dropdown-link :href="route('myBooks')">
-                            {{ __('My books') }}
+                            {{ __('Favourite books') }}
                         </x-dropdown-link>
                         <x-dropdown-link :href="route('allBooks')">
                             {{ __('All books') }}

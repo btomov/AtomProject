@@ -5,14 +5,10 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
+    return redirect('/all-books');
 })->middleware(['auth'])->name('dashboard');
 
-Route::get('/my-books', [BookController::class, 'getBooksForUser'])->middleware(['auth'])->name('myBooks');
+Route::get('/favourite-books', [BookController::class, 'getFavouriteBooks'])->middleware(['auth'])->name('myBooks');
 Route::get('/all-books', [BookController::class, 'getAllBooks'])->middleware(['auth'])->name('allBooks');
 Route::post('/new-book', [BookController::class, 'createNewBook'])->middleware(['auth'])->name('newBook');
 Route::post('/edit-book', [BookController::class, 'editBook'])->middleware(['auth'])->name('editBook');

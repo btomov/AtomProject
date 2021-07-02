@@ -30,22 +30,32 @@ class UserController extends Controller
 
     public function editUser(Request $request) {
         $authUser = Auth::user();
-
         if(!$authUser) {
             return abort(403, 'Unauthorized action.');
         }
-        // $userEmail = User::where('email', $request->email);
-        // if($userEmail){
-        //     return back()->withErrors('This email is already in use.');
-        // }
+
+        //Only check for duplicates if we're changing the email
+        if(Auth::user()->email != $request->email){
+            $userEmail = User::where('email', $request->email)->first();
+            if(!is_null($userEmail)){
+                return back()->withErrors('This email is already in use.');
+            }
+        }
+        if(Auth::user()->username != $request->username){
+            $username = User::where('username', $request->username)->first();
+            if(!is_null($username)){
+                return back()->withErrors('This username is already in use.');
+            }
+        }
+
         if($request->new_password){
             $request->validate([
                 'current_password' => ['required', new MatchOldPassword],
                 'new_password' => ['required'],
                 'new_confirm_password' => ['same:new_password'],
-                'email' => 'unique:users',
             ]);
         }
+
       
         $user = User::find($authUser->id);
         $user->firstName = $request->firstName;

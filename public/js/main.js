@@ -61,6 +61,10 @@ $(document).ready(function () {
                         break;
                     case 'deleted':
                         btn.closest('#favouriteIcon').css({ fill: 'black' })
+                        //Reload to get it out of sight if we're looking at favourites
+                        if (window.location.href.indexOf('favourite-books') > -1) {
+                            window.location.reload();
+                        }
                         break;
                 }
             },
