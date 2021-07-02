@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Book;
+use App\Models\UserFavourites;
 use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
@@ -28,7 +29,13 @@ class BookController extends Controller
 
     public function getBooksForUser() {
         $books = Book::where('user_id', Auth::user()->id)->get();
-        return view('pages.list_books')->with(['books' => $books]);
+        $favouriteBooks = UserFavourites::where('user_id', Auth::user()->id)->get();
+        $favBooks = array();
+        foreach ($favouriteBooks as $favBook) {
+            array_push($favBooks, $favBook->book_id);
+        }
+
+        return view('pages.list_books')->with(['books' => $books, 'favBooks' => $favBooks]);
     }
 
     public function getAllBooks() {
@@ -76,7 +83,6 @@ class BookController extends Controller
     public function deleteBook(Request $request) {
         $user = Auth::user();
         $bookId = $request->id;
-
         if(!$user) {
             return abort(403, 'Unauthorized action.');
         }
@@ -87,5 +93,31 @@ class BookController extends Controller
         return back()->with('successMessage', 'Book deleted successfully.');
     }
 
+    public function addRemoveBookToFavourites(Request $request) {
+        $user = Auth::user();
+        $bookId = $request->id;
+        if(!$user) {
+            return abort(403, 'Unauthorized action.');
+        }
+
+        $book = UserFavourites::where('user_id', $user->id)->where('book_id', $bookId)->first();
+        //If we find a book, then we want to remove it
+        if(is_null($book)){
+            UserFavourites::create([
+                'book_id' => $bookId,
+                'user_id' => $user->id
+            ]);
+            return response()->json(['action' => 'added']);
+
+        }else{
+            $book->delete();
+            return response()->json(['action' => 'deleted']);
+        }
+
+    }
+    public function viewBook(Request $request) {
+        $book = Book::find($request->id);
+        return view('pages.single_book')->with(['book' => $book]);
+    }
 
 }

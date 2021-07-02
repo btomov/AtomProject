@@ -2,17 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -27,6 +17,20 @@ Route::get('/all-books', [BookController::class, 'getAllBooks'])->middleware(['a
 Route::post('/new-book', [BookController::class, 'createNewBook'])->middleware(['auth'])->name('newBook');
 Route::post('/edit-book', [BookController::class, 'editBook'])->middleware(['auth'])->name('editBook');
 Route::post('/delete-book/{id}', [BookController::class, 'deleteBook'])->middleware(['auth']);
+Route::post('/toggle-favourite-book/{id}', [BookController::class, 'addRemoveBookToFavourites'])->middleware(['auth']);
+Route::get('/book/{id}', [BookController::class, 'viewBook'])->middleware(['auth']);
+
+Route::get('/settings', function () {
+    return view('pages.settings');
+})->middleware(['auth'])->name('settings');
+
+Route::post('/settings', [UserController::class, 'editUser'])->middleware(['auth'])->name('editUser');
+
+Route::get('change-password', 'ChangePasswordController@index');
+Route::post('change-password', 'ChangePasswordController@store')->name('change.password');
+
+
+
 
 // Route::get('/new-book', function () {
 //     return view('new_book');
