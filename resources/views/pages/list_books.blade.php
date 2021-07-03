@@ -3,11 +3,14 @@
     <div class="max-w-8xl justify-between flex flex-wrap" style="margin:0 auto;">
       @if($books)
         @foreach($books as $book)
-        <div class="max-w-sm rounded overflow-hidden shadow-lg m-8">
-          <img class="w-full h-80 object-cover" src={{$book->coverImage}} alt="Mountain">
+        <div class="max-w-sm rounded overflow-hidden shadow-lg m-8 bookCard">
+          <img class="w-full h-80 object-cover cover" src={{$book->coverImage}} alt="Mountain">
+          <input type="hidden" class='id' value={{$book->id}}>
+          <input type="hidden" class='isbn' value={{$book->ISBN}}>
+          <input type="hidden" class='year' value={{$book->year}}>
           <div class="px-6 py-4">
-            <div class="font-bold text-xl mb-2">{{$book->name}}</div>
-            <p class="text-gray-700 text-base description">
+            <div class="font-bold text-xl mb-2 bookName">{{$book->name}}</div>
+            <p class="text-gray-700 text-base description" value={{$book->description}}>
                 {{$book->description}}
               </p>
           </div>
@@ -21,13 +24,7 @@
             </span>
 
             {{-- Edit --}}
-            <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 showEditModal" 
-              data-id={{$book->id}}
-              data-name={{$book->name}} 
-              data-isbn={{$book->ISBN}}
-              data-year={{$book->year}} 
-              data-description={{$book->description}}
-              data-coverImage={{$book->coverImage}}>
+            <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 showEditModal">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
               </svg>

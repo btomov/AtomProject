@@ -57,7 +57,6 @@ class BookController extends Controller
         foreach ($favouriteBooks as $favBook) {
             array_push($favBooks, $favBook->book_id);
         }
-
         return view('pages.list_books')->with(['books' => $books, 'favBooks' => $favBooks]);
     }
 
@@ -96,10 +95,13 @@ class BookController extends Controller
         }
 
         $book = Book::find($bookId);
-        $request->validate([
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'isbn' => 'unique:books,ISBN'
-        ]);
+        //Only validate ISBN if its been changed, else edit fails
+        if($request->isbn != $book->ISBN){
+            $request->validate([
+                'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'isbn' => 'unique:books,ISBN'
+            ]);
+        }
         if($request->image){
             $imageName = time().'.'.$request->image->extension();      
             $request->image->move(public_path('images'), $imageName);

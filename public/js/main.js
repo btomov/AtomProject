@@ -12,14 +12,20 @@ $(document).ready(function () {
     
     
     $('.showEditModal').on('click', function(event){
-        let id = event.currentTarget.getAttribute("data-id");
-        let name = event.currentTarget.getAttribute("data-name");
-        let isbn = event.currentTarget.getAttribute("data-isbn");
-        let year = event.currentTarget.getAttribute("data-year");
-        let description = event.currentTarget.getAttribute("data-description");
-        console.log(description);
-        let coverImage = event.currentTarget.getAttribute("data-coverImage");
-        console.log(coverImage);
+        const elem = $(event.currentTarget);
+        const card = elem.closest('.bookCard');
+        const id = card.find('.id').val();
+        const name = card.find('.bookName').text();
+        const isbn = card.find('.isbn').val();
+        const year = card.find('.year').val();
+        let descriptionTxt = card.find('.description').text();
+        const description = $.trim(descriptionTxt);
+        const coverImage = card.find('.cover').attr('src');
+        console.log(card)
+        console.log(name)
+        console.log(isbn)
+        console.log(year)
+
         const editModal = $('#editBookModal');
         editModal.show();
         editModal.find('#id').val(id);
@@ -32,7 +38,6 @@ $(document).ready(function () {
 
     $('.deleteBtn').on('click', function(e){
         const id = e.currentTarget.getAttribute("data-id");
-        console.log(id);
         $.ajax({
             url: '/delete-book/'+ id,
             headers: {
