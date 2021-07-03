@@ -188226,21 +188226,3 @@ select {
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
-@media (max-width: 896px) {
-  .max-w-sm {
-    width:100%;
-    max-width:none;
-  }
-}
-
-.description-div{
-  min-height:50px;
-  overflow-wrap: break-word;
-}
-.show-more{
-  display: none;
-  text-decoration:underline;
-}
-.openModal{
-  cursor: pointer;
-}
