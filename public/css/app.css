@@ -188233,7 +188233,14 @@ select {
   }
 }
 
-.description{
+.description-div{
   min-height:50px;
   overflow-wrap: break-word;
+}
+.show-more{
+  display: none;
+  text-decoration:underline;
+}
+.openModal{
+  cursor: pointer;
 }

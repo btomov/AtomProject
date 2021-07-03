@@ -20,8 +20,8 @@ class CreateUserFavourites extends Migration
             $table->integer('book_id')->unsigned();
         });
         Schema::table('user_favourites', function($table) {
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('book_id')->references('id')->on('books');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
         });
     }
 

@@ -57,6 +57,8 @@ class BookController extends Controller
         foreach ($favouriteBooks as $favBook) {
             array_push($favBooks, $favBook->book_id);
         }
+
+        // dd($books);
         return view('pages.list_books')->with(['books' => $books, 'favBooks' => $favBooks]);
     }
 
@@ -67,8 +69,7 @@ class BookController extends Controller
             return abort(403, 'Unauthorized action.');
         }
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'isbn' => 'unique:books,ISBN'
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
     
         $imageName = time().'.'.$request->image->extension();  
@@ -130,9 +131,12 @@ class BookController extends Controller
         if(!$user) {
             return abort(403, 'Unauthorized action.');
         }
-
         // $book = Book::where('id', $bookId);
         $book = Book::find($bookId);
+        //Delete the cover image
+        if(file_exists(getcwd().$book->coverImage)){
+            unlink(getcwd().$book->coverImage);           
+        }
         $book->delete();
         return back()->with('successMessage', 'Book deleted successfully.');
     }

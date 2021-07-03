@@ -18,13 +18,10 @@ $(document).ready(function () {
         const name = card.find('.bookName').text();
         const isbn = card.find('.isbn').val();
         const year = card.find('.year').val();
-        let descriptionTxt = card.find('.description').text();
+        let descriptionTxt = card.find('.description-hidden').text();
         const description = $.trim(descriptionTxt);
+        console.log(descriptionTxt);
         const coverImage = card.find('.cover').attr('src');
-        console.log(card)
-        console.log(name)
-        console.log(isbn)
-        console.log(year)
 
         const editModal = $('#editBookModal');
         editModal.show();
@@ -46,6 +43,9 @@ $(document).ready(function () {
             type: 'POST',
             success: function(result) {
                 window.location.reload();
+            },
+            error: function(err){
+                console.log(err);
             }
         });      
     });
@@ -82,7 +82,6 @@ $(document).ready(function () {
 
     $('.viewBtn').on('click', function(e){
         const id = e.currentTarget.getAttribute("data-id");
-        console.log(id);
         $.ajax({
             url: '/book/'+ id,
             headers: {
@@ -104,7 +103,6 @@ $(document).ready(function () {
     });
     $('.image-uploader-edit').change(function(){
         let reader = new FileReader(); 
-        console.log('swapping src')
          
         reader.onload = (e) => {    
           $('#image-preview-edit').attr('src', e.target.result); 
@@ -113,4 +111,22 @@ $(document).ready(function () {
         }   
         reader.readAsDataURL(this.files[0]);       
     });
+
+    //Only run on all-books & favourite-books, not single book view
+    if (window.location.href.indexOf('all-books') > -1 || window.location.href.indexOf('favourite-books') > -1 ) {
+        $('.description').each(function(i, obj) {
+            //Grab the trimmed text
+            let description = $.trim($(obj).text());
+            const maxLength = 50;
+            if(description.length > maxLength){
+                //Trim descr
+                description = description.substring(0,maxLength);
+                description = description.concat('...');
+                //Show 'View Full Book' txt
+                $(obj).parent().find('.show-more').show();
+            }
+            $(obj).text(description)
+        
+        });
+    } 
 });

@@ -17,9 +17,9 @@ class CreateBookTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->string('name');
-            $table->string('ISBN')->unique();
-            $table->integer('year');
-            $table->string('description', 1000);
+            $table->string('ISBN');
+            $table->integer('year')->nullable();;
+            $table->string('description', 1000)->nullable();
             $table->string('coverImage')->nullable();
             $table->integer('user_id')->unsigned();
             

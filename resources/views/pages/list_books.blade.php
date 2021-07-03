@@ -1,18 +1,22 @@
 @include('partials.head')
 @include('layouts.navigation')
-    <div class="max-w-8xl justify-between flex flex-wrap" style="margin:0 auto;">
+  <div class='flex justify-center'>
+    <div class="max-w-8xl flex flex-wrap">
       @if($books)
-        @foreach($books as $book)
+        @forelse($books as $book)
         <div class="max-w-sm rounded overflow-hidden shadow-lg m-8 bookCard">
           <img class="w-full h-80 object-cover cover" src={{$book->coverImage}} alt="Mountain">
           <input type="hidden" class='id' value={{$book->id}}>
           <input type="hidden" class='isbn' value={{$book->ISBN}}>
           <input type="hidden" class='year' value={{$book->year}}>
+          {{-- Hidden description so we get the non-shortened text for the edit modal --}}
+          <span class='hidden description-hidden'>{{$book->description}}</span>
           <div class="px-6 py-4">
             <div class="font-bold text-xl mb-2 bookName">{{$book->name}}</div>
-            <p class="text-gray-700 text-base description" value={{$book->description}}>
-                {{$book->description}}
-              </p>
+            <p class="text-gray-700 text-base description-div">
+                <span class='description'>{{$book->description}}</span>
+                <a href='/book/{{$book->id}}'' class='show-more'>Show more</a>
+            </p>
           </div>
           
           <div class="px-6 pt-4 pb-2">
@@ -56,11 +60,17 @@
 
           </div>
         </div>
-        @endforeach
-        @else
-        <p>No books have been found</p>
+        @empty
+        <div class="flex flex-col">
+          <p>No books have been found</p>
+          <button class="bg-grey-lighter flex-1 border-b-2 md:flex-none border-grey ml-2 hover:bg-grey-lightest text-grey-darkest font-bold py-4 px-6 rounded openModal" >
+            Create one?
+          </button>
+        </div>
+        @endforelse
         @endif
       </div>
+  </div>
 @include('partials.edit_book_modal')
 
 @include('partials.footer')

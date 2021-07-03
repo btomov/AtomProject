@@ -34,11 +34,6 @@ class UserController extends Controller
             return abort(403, 'Unauthorized action.');
         }
 
-        $request->validate([
-            'username' => 'unique:users',
-            'email' => 'unique:users',
-        ]);
-
         if($request->new_password){
             $request->validate([
                 'current_password' => ['required', new MatchOldPassword],
@@ -48,6 +43,19 @@ class UserController extends Controller
         }
 
         $user = User::find($authUser->id);
+        if($request->username != $user->username){
+            $request->validate([
+                'username' => 'unique:users',
+            ]); 
+        }
+
+        if($request->email != $user->email){
+            $request->validate([
+                'email' => 'unique:users',
+            ]);   
+        }
+
+        
         $user->firstName = $request->firstName;
         $user->lastName = $request->lastName;
         $user->username = $request->username;

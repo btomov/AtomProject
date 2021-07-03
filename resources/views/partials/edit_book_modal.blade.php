@@ -1,5 +1,5 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
-<div class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true" style="display:none;" id="editBookModal">
+<div class="fixed z-10 inset-0 overflow-y-auto modal-bgr" aria-labelledby="modal-title" role="dialog" aria-modal="true" style="display:none;" id="editBookModal">
     <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
 
       <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
@@ -16,7 +16,8 @@
               </h3>
               <form method="POST" action="{{ route('editBook') }}" enctype="multipart/form-data">
                 @csrf
-    
+                <x-auth-validation-errors class="mb-4" :errors="$errors" />
+
                 <div class="mt-4">    
                     <x-input id="id" type="hidden" name="id" />
                 </div>
@@ -43,13 +44,13 @@
                 <div class="mt-4">
                     <x-label for="coverImage" :value="__('Cover Image')" />
     
-                    <img src='images' id='image-preview-edit' alt="Editable photo">
+                    <img src='' id='image-preview-edit' alt="Editable photo">
                     <div class="col-md-6">
                       <input type="file" class='image-uploader-edit' name="image" class="form-control">
                     </div>
                 </div>
     
-                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                <div class="px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                   <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
                     Update Book
                   </button>
