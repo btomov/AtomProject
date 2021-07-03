@@ -1,9 +1,10 @@
 - Installation:
 - Requires PHP 7.3 or higher, MySQL & composer
 - Create a DB in MySQL (copy over .env and change the DB details accordingly)
-- Install the composer packages (php composer.phar install)
+- Install the composer packages (composer install)
 - Install the npm packages & compile the CSS (npm install && npm run dev)
 - Run the migrations (requires an active DB connection) - php artisan migrate (Possible issue #1)
+- Generate a key with php artisan key:generate
 - Start the server with php artisan serve . It should run on http://127.0.0.1:8000
 
 
